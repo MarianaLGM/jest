@@ -19,6 +19,7 @@ describe("addProduct", () => {
         addProduct("apple", 1); // añadimos un producto para poder comprobar que no se añade un producto repetido
         expect(()=>addProduct("apple", 1)).toThrow(); // esperamos que lance un error al añadir un producto cuyo nombre ya existe
     });
+
     it("should fail when adding a product with no name", () => {
         expect(()=>addProduct(null,3)).toThrow(); // esperamos que lance un error al añadir un producto con nombre null
     });

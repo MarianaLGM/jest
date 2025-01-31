@@ -48,7 +48,7 @@ function addProduct(name, price) {
    
 function removeProduct (id){
   //if (products.id != id){
-    if (products.find((product) => product.id === id)) {
+    if (products.find((product) => product.id != id)) {
     throw new Error ("The id doesn`t exist")
   }
 const deleteProduct = "";
