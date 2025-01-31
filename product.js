@@ -45,16 +45,17 @@ function addProduct(name, price) {
     //-parámetro: el id del producto. 
     //- debería eliminar un producto
     //-Si el producto no existe, la función lanzará un error.
-      
+   
 function removeProduct (id){
-  if (product.id != id){
+  //if (products.id != id){
+    if (products.find((product) => product.id === id)) {
     throw new Error ("The id doesn`t exist")
   }
-  products.delete(product);
-  return products;
-  };
+const deleteProduct = "";
 
-
+const index = products.findIndex(i => i.id === deleteProduct);
+products.splice(index, 1);//elimine solo un elemento a partir del indice que ha encontrado findIndex
+};
 
 
   /*  

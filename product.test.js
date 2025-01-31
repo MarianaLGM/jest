@@ -28,19 +28,26 @@ describe("addProduct", () => {
     
 });
 
-
+/*Pasos:
+        -añade producto
+        -elimina producto
+        -obtienes los productos actuales (get)
+        -verificas que está vacío
+*/
 
 //2. FUNCION removeProduct 
-    
-describe("removeProduct",() =>{//describe qué hará el test
+   
+describe("removeProduct",() =>{
     it("should remove a product", ()=>{
-        expect(removeProduct(0)).not.toThrow()//esperamos que no lance error si localiza id en array
-        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 1}]);//esperamos que nos devuelva el producto buscado
-        removeProduct(0);
+        expect(()=>addProduct(1)).not.toThrow();//añades un producto id 1
+        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3},{id:1,name: 'banana', price: 3}]);//obtengo todos los productos
+        removeProduct(1);//elimino un producto de la lista
+        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3}]);//comprobamos que se ha eliminado correctamente
     });   
+
     it("should fail when deleting a non-existent product", () => {
-        removeProduct(1) //debería dar error si metemos un id que no existe, en este caso 1 no existe
-        expect(()=>removeProduct(1)).toThrow(); //esperamos que lance un error al eliminar un id que no existe
+        removeProduct(3)//ELIMINAMOS un producto que NO EXISTE para poder comprobar que NO SE ELIMINA.
+        expect(()=>removeProduct(3)).toThrow(); //esperamos que lance un error al eliminar un id que no existe
     });
 });
 
