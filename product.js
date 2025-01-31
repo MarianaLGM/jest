@@ -1,6 +1,7 @@
 
 //1. npm init -y
 
+
 //2. npm i jest
 
 /*3. en package.json añadimos 
@@ -12,66 +13,56 @@
 let products = []; //array productos tienda
 let id = 0;
 
+beforeEach(() => {
+    resetProducts();
+});
 
-  
+function resetProducts() {
+  products = [];
+  id = 0;
+}
+
+
 //1. FUNCION addProduct
     //-dos parámetros: el nombre del producto y el precio
     //- debería agregar un producto.
           //- debería incrementar el id en 1 cada vez que se añada un producto.
-
-function addProduct (name, price){
-  for(let i=0; i<products.length; i++){//bucle para recorrer array productos y ver si ese id que voy añadir existe, si no existe lo añade
-    if(products[i].id !=id){//si el id del array NO coincide con el nuevo 
-      id ++;//incrementar el id en 1 cada vez que se añada un producto 
-      return products.push(product)//añade el producto
-    }
+          //-Si alguno de los dos parámetros no está definido, la función lanzará un error
+          //-Si el producto ya existe también lanzará error
+          // throw new Error ("The product is already added")
+function addProduct(name, price) {
+  if (!name || !price) throw new Error("Incorrect data");
+  if (products.find((product) => product.name === name)) {
+    throw new Error("This product already exists");
   }
-}
-  addProduct();
-
-  function addProduct (name, price){
-    //condicional si no hay nombre o producto -> que tire Error ("el error que quieras poner")
-    /*condicional para saber si ya existe un producto (yo usuaría un find, ya que se lee mejor que un bucle for, -> array.find(producto.name === name)) {
-      si ya existe -> Que tire un error ("mensaje del error")*/
-      id ++;//incrementar el id en 1 cada vez que se añada un producto
-      const product= { //objeto para guardar un producto
-        id:"",
-        name:"",
-        price: ""
-      }; 
-      products.push
-      return products
-        
-      }
- 
-    addProduct();
-
-  funcion addProduct(name, price) {
-    //condicional si no hay nombre o producto -> que tire Error ("el error que quieras poner")
-    
-    }
-    // Aquí creas el objeto que tienes fuera el const product = ...
-    products.push
-    return products
-    })
+  const product = { name, price, id: id++ };
+  products.push(product);
+  return products;
+};
 
 
 //2. FUNCION removeProduct
     //-parámetro: el id del producto. 
     //- debería eliminar un producto
+    //-Si el producto no existe, la función lanzará un error.
       
 function removeProduct (id){
-  for(let i=0; i<products.length; i++){
-    if(products[i].id===id){
-      return products.removeItem(product);
-    } 
+  if (product.id != id){
+    throw new Error ("The id doesn`t exist")
   }
-}
-  removeProduct();
-    
+  products.delete(product);
+  return products;
+  };
+
+
+
+
+  /*  
 //3.FUNCION getProduct por ID
     //-parámetro: el id del producto. 
-    /* - debería devolver un producto por su id.*/
+    // - debería devolver un producto por su id.
+    //-Devuelve un objeto con los datos del producto. Si el producto no existe, la función lanzará un error
+        
 function getProduct (id){
   for(let i=0; i<products.length; i++){
     if(products[i].id ===product.id){
@@ -79,24 +70,28 @@ function getProduct (id){
     }        
   }
 }
-getProduct();
+getProduct();*/
 
 //4. FUNCION getProduct TODOS
     //-parámetro: el id del producto. 
     // - debería devolver un producto por su id.
-  function getProduct (){
+    //-Devuelve TODOS los productos. Si el producto no existe, la función lanzará un error
+
+  function getProducts (){
     for(let i=0; i<products.length; i++){
         return products
       }        
     }
-  getProduct();
+  getProducts();
 
-
+/*
 //5.FUNCION updateProduct
     //-tres parámetros: el id del producto, el nombre del producto y el precio del producto. 
-  /*- debería actualizar un producto por su id.
-  - debería lanzar un error si el producto no existe.
-*/
+    //- debería actualizar un producto por su id.
+    // Si el producto no existe, la función lanzará un error. 
+    // Si el nombre o el precio no están definidos, la función actualizará el producto con los datos que sí estén definidos.
+        
+
 function updateProduct (id,name, price){
   for(let i=0; i<products.length; i++){
     if(products[i].id ===id){
@@ -105,13 +100,13 @@ function updateProduct (id,name, price){
   }
 }
 
-updateProduct();
+updateProduct();*/
 
 
 module.exports={
-  resetProducts,
   addProduct,
-  removeProduct,
-  getProduct,
-  updateProduct
+  resetProducts,
+  getProducts,
+  removeProduct
+ 
 };
