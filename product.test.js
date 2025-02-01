@@ -40,52 +40,75 @@ describe("addProduct", () => {
    
 describe("removeProduct",() =>{
     it("should remove a product", ()=>{
-        expect(()=>addProduct(1)).not.toThrow();//añades un producto id 1
-        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3},{id:1,name: 'banana', price: 3}]);//obtengo todos los productos
-        removeProduct(1);//elimino un producto de la lista
-        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3}]);//comprobamos que se ha eliminado correctamente
+        expect(()=>addProduct("apple", 3)).not.toThrow();//añades un producto id 1
+        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3}]);//obtengo todos los productos
+        removeProduct(0);//elimino un producto de la lista
+        expect(getProducts()).toEqual([]);//comprobamos que se ha eliminado correctamente
     });   
 
     it("should fail when deleting a non-existent product", () => {
-        removeProduct(3)//ELIMINAMOS un producto que NO EXISTE para poder comprobar que NO SE ELIMINA.
         expect(()=>removeProduct(3)).toThrow(); //esperamos que lance un error al eliminar un id que no existe
     });
 });
 
+describe("removeProduct", () => {
 
-/*
-//3.FUNCION getProduct
-    
-describe("getProduct",() =>{//describe qué hará el test
-    it("", ()=>{
-        expect(getProduct()).toBe(true)
-    });
-    it("", ()=>{
-        expect(getProduct()).not.toBe(true);
-    });
+    it("should remove a product", ()=>{
+        expect(()=>addProduct("apple", 3)).not.toThrow();//añades un producto 
+        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3}]);//obtengo todos los productos
+        removeProduct(0);//elimino un producto de la lista
+        expect(getProducts()).toEqual([]);//comprobamos que se ha eliminado correctamente
+    });   
+
+    it("should fail when deleting a non-existent product", () => {
+        // Intentamos eliminar un producto con un id que no existe
+        expect(() => removeProduct(33)).toThrow("The id doesn't exist");
+      });
+});
+
+
+//3.FUNCION getProduct(ID)
+/*Pasos:
+        -añade producto
+        -muestra producto
+// Si el producto no existe, la función lanzará un error. 
+
         
-});
-
-//4.FUNCION getProduct
-
+*/
 describe("getProduct",() =>{//describe qué hará el test
-    it("", ()=>{
-        expect(getProduct()).toBe(true)
+    it("should getting a product", () => {
+        expect(()=>addProduct("apple", 3)).not.toThrow(); 
+        getProduct(0);
+        expect(getProducts()).toEqual([{id:0,name: 'apple', price: 3}]); 
     });
-    it("", ()=>{
-         expect(getProduct()).not.toBe(true);
-    });
-                
+    it("should fail when getting a non-existent product", () => {
+        // Intentamos obtener un producto con un id que no existe
+        expect(() => getProduct(33)).toThrow("The id doesn't exist");
+      });
 });
+
 
 //5.FUNCION updateProduct
+// Si el producto no existe, la función lanzará un error. 
+// Si el nombre o el precio no están definidos, la función actualizará el producto con los datos que sí estén definidos.
     
-describe("getProduct",() =>{//describe qué hará el test
-    it("", ()=>{
-        expect(updateProduct()).toBe(true)
+describe("updateProduct",() =>{//describe qué hará el test
+    it("should updating a product", () => {
+        expect(()=>addProduct("apple", 1)).not.toThrow(); 
+        expect(getProducts()).toEqual([{id:0, name: "apple", price: 1}]); 
+        updateProduct(0,"banana",3); 
+        expect(getProducts()).toEqual([{id:0, name: "banana", price: 3}]); 
     });
-    it("", ()=>{
-        expect(updateProduct()).not.toBe(true);
+    it("should fail when updating a non-existent product", () => {
+        // Intentamos obtener un producto con un id que no existe
+        expect(() => updateProduct(33,"fish",5)).toThrow("The id doesn't exist");
+    });  
+
+    it("should fail when updating a product with no name", () => {
+        expect(()=>updateProduct(null,3)).toThrow(); // esperamos que lance un error al añadir un producto con nombre null
     });
-            
-});*/
+
+    it("should fail when updating a product with no price", () => {
+        expect(()=>updateProduct("fish",null)).toThrow(); // esperamos que lance un error al añadir un producto con precio null
+    });      
+});
